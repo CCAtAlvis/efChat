@@ -1,0 +1,7 @@
+# ignore all node modules
+/node_modules
+
+# ignoring all firebase realted stuff for now
+/functions/node_modules
+/functions/*.json
+.firebaserc
