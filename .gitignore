@@ -1,7 +1,7 @@
 # ignore all node modules
 /node_modules
 
-# ignoring all firebase realted stuff for now
-/functions/node_modules
-/functions/*.json
-.firebaserc
+# ignore all firebase realted stuff
+# firebase credentials for the firebase service
+# get your own at https://console.firebase.google.com/
+/src/firebase.json
