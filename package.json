@@ -1,0 +1,27 @@
+{
+    "name": "efchat",
+    "version": "1.0.0",
+    "description": "A simple firebase based chat application made with electron",
+    "main": "src/main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "electron ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CCAtAlvis/efChat.git"
+    },
+    "author": "Chinmay Chandak (CCAtAlvis)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CCAtAlvis/efChat/issues"
+    },
+    "homepage": "https://github.com/CCAtAlvis/efChat#readme",
+    "dependencies": {
+        "electron": "^1.7.9",
+        "firebase": "^4.6.2",
+        "firebase-admin": "^5.5.0",
+        "firebase-functions": "^0.7.3",
+        "firebase-tools": "^3.15.0"
+    }
+}
