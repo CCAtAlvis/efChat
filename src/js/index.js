@@ -41,7 +41,45 @@ $("input[type=button]").on( "click", ( e ) => {
         // get the user password from the firebase and compare it with the user entered password 
         if ( "login" === type )
         {
+            // console.log( "starting login process" );
 
+            // 1: fetch the password from firebase
+            // 2: compare it with user entered password
+            // if matches
+                // login user
+            // if not
+                // alert user about wrong password
+            // if returned null object
+            // alert user that the account does not exist
+            
+            admin.database().ref( `users/${username}` ).once( "value" ).then( ( snapshot ) => {
+                // fetch the password and store
+                let fetchedPassword = snapshot.val();
+                // console.log( fetchedPassword + "     " + typeof fetchedPassword );
+                // password     string
+                // null     object
+
+                if ( "object" === typeof fetchedPassword )
+                {
+                    // alert user that the account des not exist
+
+                }
+                else if ( "string" === typeof fetchedPassword )
+                {
+                    // compare the passwords
+
+                    if ( fetchedPassword === password )
+                    {
+                        // Yes! the passwords match, log the user in
+                        // console.log( "logged in!!!" );
+                    }
+                    else
+                    {
+                        // the passwords doesn't match
+                        // alert the user
+                    }
+                }
+            });    
         }
         // if the user wants to signup
         else if ( "signup" === type )
@@ -88,7 +126,7 @@ $("input[type=button]").on( "click", ( e ) => {
                 {
                     // now that the passwords match
                     // get a snapshot of firebase with username
-
+                    
                     admin.database().ref( `users/${username}` ).once( "value" ).then( ( snapshot ) => {
                         // fetch the password and store
                         let fetchedPassword = snapshot.val();
