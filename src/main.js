@@ -4,20 +4,6 @@ const { app, BrowserWindow } = electron;
 const path = require("path");
 const url = require("url");
 
-// declearing firebase modules 
-const admin = require("firebase-admin");
-const functions = require("firebase-functions");
-
-// getting the credential of firebase project
-const firebaseCredentials = require("./firebase.json");
-
-// initializing firebase app.
-// replace databaseURL with URL of you database
-admin.initializeApp({
-    credential: admin.credential.cert(firebaseCredentials),
-    databaseURL: "https://efchat-cb07c.firebaseio.com/"
-});
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -28,16 +14,17 @@ function createWindow ()
     let bwOption = {
         // transparent makes the title bar transparent
         // other wise title bar will take system default color
-        transparent: true,
+        // transparent: true,
         width: 300,
         minWidth: 300,
         // maxWidth: 300,
    
-        height: 400,
-        minHeight: 400
-        // maxHeight: 400
+        height: 450,
+        minHeight: 450
+        // maxHeight: 450
         // useContentSize: true
     };
+
     // Create the browser window.
     win = new BrowserWindow( bwOption );
 
@@ -85,5 +72,5 @@ app.on('activate', () => {
 // set the menu bar to null when the browser window is created
 // so we have a simless effect
 app.on('browser-window-created', (e, window) => {
-    window.setMenu(null);
+    // window.setMenu(null);
 });

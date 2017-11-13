@@ -9,14 +9,16 @@
 
 </head>
 
-<body>
+<body style="-webkit-app-region: drag">
     <h1>efChat</h1>
 
     <form method="post">
         <input type="text" name="username" id="username" placeholder="Username *">
         <br>
-        <input type="password" name="password" id="password" placeholder="Password *">
-        <br>
+        <div id="password-fileds">
+            <input type="password" name="password" id="password" placeholder="Password *">
+            <br>
+        </div>
         <input type="button" id="signup" name="signup" value="Sign Up"><input type="button" name="login" value="Login">
     </form>
 
