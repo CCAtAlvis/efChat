@@ -4,6 +4,9 @@ const { app, BrowserWindow } = electron;
 const path = require('path');
 const url = require('url');
 
+// ipcMain to communicate between main and renderer process
+const {ipcMain} = electron;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -71,4 +74,16 @@ app.on('activate', () => {
 // so we have a simless effect
 app.on('browser-window-created', (e, window) => {
   // window.setMenu(null);
+});
+
+
+// HERE GOES THE MAIN LOGIC CODE
+
+// listen to login-user for logging in user
+
+ipcMain.on('login-user', (event, arg) => {
+  // console.log(event);
+  // console.log(arg);
+  // will handle this later
+  // TODO
 });

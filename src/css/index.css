@@ -39,9 +39,6 @@ form input[type="button"]:focus {
 }
 
 a {
-    position: absolute;
-    right: 20px;
-    margin-top: 15px;
     font: 20px Raleway;
     text-decoration: none;
     color: #88F;
@@ -49,4 +46,29 @@ a {
 
 a:hover {
     color: #F88;
+}
+#forgotPassword {
+    position: absolute;
+    right: 20px;
+    margin-top: 15px;
+}
+
+#message {
+    position: table;
+    margin: auto;
+    margin-top: 50px;
+    width: 80%;
+    font-size: 17px;
+    font-family: 'Open sans';
+    padding: 7px;
+}
+
+#message.error {
+    border: 1px solid red;
+    background: #F66;
+}
+
+#message.success {
+    border: 1px solid green;
+    background: #6F6;
 }
