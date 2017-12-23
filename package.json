@@ -1,10 +1,17 @@
 {
     "name": "efchat",
-    "version": "1.0.0",
-    "description": "A simple firebase based chat application made with electron",
+    "productName": "efChat",
+    "version": "0.1.0",
+    "description": "A simple firebase based chat application made with electron (and that to for learning only, dont use in production. No way are you going to use it in production) (I know its that bad, poor me)",
     "main": "src/main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "build": "electron-packager . --overwrite --prune=true --asar --out=builds/testing",
+        "build-mac": "electron-packager . efChat --overwrite --asar --platform=darwin --arch=x64 --prune=true --out=builds/mac",
+        "build-win-x32": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=builds/win",
+        "build-win-x64": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=builds/win",
+        "build-linux": "electron-packager . efChat --overwrite --asar --platform=linux --arch=x64 --prune=true --out=builds/linux",
+        "package-debian": "electron-installer-debian --src builds/testing/efChat-linux-x64/ --arch amd64 --config debian.json"
     },
     "repository": {
         "type": "git",
@@ -18,9 +25,13 @@
     "homepage": "https://github.com/CCAtAlvis/efChat#readme",
     "dependencies": {
         "bcrypt": "^1.0.3",
-        "electron": "^1.8.1",
         "firebase-admin": "^5.5.0",
         "firebase-functions": "^0.7.3",
         "jquery": "^3.2.1"
+    },
+    "devDependencies": {
+        "electron": "^1.8.1",
+        "electron-installer-debian": "^0.7.1",
+        "electron-packager": "^10.1.0"
     }
 }
