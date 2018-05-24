@@ -23,15 +23,8 @@
         "url": "https://github.com/CCAtAlvis/efChat/issues"
     },
     "homepage": "https://github.com/CCAtAlvis/efChat#readme",
-    "dependencies": {
-        "bcrypt": "^1.0.3",
-        "firebase-admin": "^5.5.0",
-        "firebase-functions": "^0.7.3",
-        "jquery": "^3.2.1"
-    },
     "devDependencies": {
-        "electron": "^1.8.1",
-        "electron-installer-debian": "^0.7.1",
-        "electron-packager": "^10.1.0"
+        "electron": "^2.0.2",
+        "firebase-admin": "^5.12.1"
     }
 }
