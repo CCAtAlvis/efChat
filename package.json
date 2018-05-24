@@ -25,6 +25,7 @@
     "homepage": "https://github.com/CCAtAlvis/efChat#readme",
     "devDependencies": {
         "electron": "^2.0.2",
-        "firebase-admin": "^5.12.1"
+        "firebase-admin": "^5.12.1",
+        "jquery": "^3.3.1"
     }
 }
