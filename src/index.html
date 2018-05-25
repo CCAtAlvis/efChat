@@ -4,6 +4,7 @@
     <title>efChat</title>
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto|Comfortaa|Graduate|Megrim|Poiret+One|Poppins|Raleway">
+
 </head>
 
 <body style="-webkit-app-region: drag">
@@ -18,8 +19,25 @@
     <div id="message">
         some sample text
     </div>
+    <div id="showHere"></div>
+
+
+    <script>
+window.onload() = function() {
+alert("hi");
+var config = require('./firebase.json');
+firebase.initializeApp(config);
+const database = firebase.database();
+
+var user = firebase.auth().currentUser;
+document.getElementById("showHere").innerText = JSON.stringify(user, null, '    ');
+document.getElementById("showHere").innerText = "JSON.stringify(user, null, '    ')";
+alert(user);
+}
+    </script>
 
     <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
     <script src="js/index.js"></script>
+
 </body>
 </html>

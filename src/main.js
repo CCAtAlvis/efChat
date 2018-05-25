@@ -2,6 +2,7 @@ const electron = require('electron');
 const { app, BrowserWindow } = electron;
 const path = require('path');
 const url = require('url');
+const server = require('./server.js');
 
 // ipcMain to communicate between main and renderer process
 const {ipcMain} = electron;
@@ -27,11 +28,13 @@ function createWindow() {
   win = new BrowserWindow(bwOption);
 
   // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  // win.loadURL(url.format({
+  //   pathname: path.join(__dirname, 'test.html'),
+  //   protocol: 'file:',
+  //   slashes: true
+  // }));
+  win.loadURL('http://localhost:5685/test.html');
+  
 
   // Emitted when the window is closed.
   win.on('closed', () => {
