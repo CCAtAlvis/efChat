@@ -1,5 +1,8 @@
 const fs = require('fs');
-const {ipcRenderer} = require('electron');
+const electron = require('electron');
+
+const {ipcRenderer} = electron;
+const remote = electron.remote;
 
 const admin = require('firebase-admin');
 // Initialize Firebase
@@ -54,4 +57,11 @@ document.getElementById('login').addEventListener('click', () => {
         message.innerText = 'Please enter number and pin';
     }
 
+});
+
+// close this window when the chat window is initialized
+// listen to that event from main window
+ipcRenderer.on('close-login-window', (event, arg) => {
+    console.log("in close login window");
+    remote.getCurrentWindow().close();
 });
