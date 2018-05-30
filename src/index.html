@@ -11,32 +11,19 @@
     <h1>efChat</h1>
 
     <form method="post">
-        <input type="text" name="number" id="number" placeholder="Number *" value="+91">
+        <input type="text" name="number" id="number" placeholder="Number *" value="+918655759385">
         <br>
-        <input type="button" id="login" name="login" value="Enter number">
+        <input type="password" name="pin" id="pin"  placeholder="Pin *" value="1234">
+        <br>
+        <input type="button" id="login" name="login" value="Get Started">
     </form>
 
     <div id="message">
         some sample text
     </div>
-    <div id="showHere"></div>
 
+    <div id="log"></div>
 
-    <script>
-window.onload() = function() {
-alert("hi");
-var config = require('./firebase.json');
-firebase.initializeApp(config);
-const database = firebase.database();
-
-var user = firebase.auth().currentUser;
-document.getElementById("showHere").innerText = JSON.stringify(user, null, '    ');
-document.getElementById("showHere").innerText = "JSON.stringify(user, null, '    ')";
-alert(user);
-}
-    </script>
-
-    <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
     <script src="js/index.js"></script>
 
 </body>

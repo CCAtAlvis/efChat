@@ -1,9 +1,11 @@
 # efChat
 A simple firebase based chat application made with electron, desktop companion of MyChat.
+
 **Highly unstable, shit might hit the fan!**
 
 # MyChat
 Chat Application using Firebase Realtime Database
+
 [MyChat](https://github.com/a7r3/MyChat) - current working repo
 
 ## TODO
@@ -27,10 +29,18 @@ Chat Application using Firebase Realtime Database
 
 # Note:
 > As I(we) am using firebase realted stuff.
+> 
 > I am not including my firebase credentials of firebase service, for obvious reasons.
+> 
 > **To build from source** 
+> 
 > Create your own Firebase project at https://console.firebase.google.com/
+> 
 > Get the SDK key file and rename it to firebase.json
+> 
 > And place it in the source folder.
+> 
 > i.e. src/firebase.json
+> 
 > also you will have to replace the Firebase RTDB address throught the project!
+> 

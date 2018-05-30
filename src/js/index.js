@@ -1,69 +1,57 @@
 const fs = require('fs');
+const {ipcRenderer} = require('electron');
 
-const e = require('events');
-var event = new e.EventEmitter();
-const $ = require('jquery');
-
+const admin = require('firebase-admin');
 // Initialize Firebase
-var config = require('./firebase.json');
-firebase.initializeApp(config);
-const database = firebase.database();
+let config = require('./firebase.json');
+admin.initializeApp({
+    credential: admin.credential.cert(config),
+    databaseURL: 'https://mychat-9a2b7.firebaseio.com/'
+});
+const database = admin.database();
 
-$('input[type=button]').on('click', (e) => {
-  e.preventDefault();
-  console.log("hiu");
-  let number = $('#number').val();
-  number = number.replace(/\s/g, '');
+document.getElementById('login').addEventListener('click', () => {
+    let message = document.getElementById("message");
 
-  var phoneNumber = number;
-  var appVerifier = window.recaptchaVerifier;
-  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    .then(function (confirmationResult) {
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
-      window.confirmationResult = confirmationResult;
-      console.log("success");
-    }).catch(function (error) {
-      // Error; SMS not sent
-      // ...
-      console.log("error")
-    });
+    let number = document.getElementById("number").value;
+    let pin = document.getElementById("pin").value;
+    // TODO: make a proper internation number checker 
+    number = number.replace(/\s/g, '');
 
-  if ('' !== number) {
-    database.ref(`users/${number}`).once('value').then((snapshot) => {
-      // fetch the password and store
-      let fetchedPassword = snapshot.val();
+    if ('' !== number && '' !== pin) {
+        database.ref(`reverseMap/${number}`).once('value').then((snapshot) => {
+            // TODO: move login process to cloud functions
+            let value = snapshot.val();
 
-      if ('object' === typeof fetchedPassword) {
-        $('#message').removeClass('success').addClass('error')
-          .text(`the account does not exist`);
-      }
-      else if ('string' === typeof fetchedPassword) {
-        $('#message').removeClass('error').addClass('success')
-          .text(`Logging you in`);
+            if ('object' === typeof value && value.pin == pin) {
+                message.classList.remove('error');
+                message.classList.add('success');
+                message.innerText = 'Logging you in';
 
-        // also send am message to the main process to login the user
-        ipcRenderer.send('login-user', number);
+                // send a user details main process
+                ipcRenderer.send('login-user', value);
 
-        // trigger event to load new page
-        event.emit('change-window');
-      }
-    });
-  }
-  else {
-    // alert user to insert username and password
-    $('#message').removeClass('success').addClass('error').text(`Please enter username and password`);
-  }
+                // trigger event to load new page
+                fs.readFile(__dirname + '/test.html', (error, page) => {
+                    if (error) {
+                        throw error;
+                    }
+
+                    //document.getElementsByTagName("html")[0].innerHTML = page;
+                });
+            }
+            else {
+                message.classList.remove('success');
+                message.classList.add('error');
+                message.innerText = 'the account authentication is in correct';
+            }
+        });
+    }
+    else {
+        // alert user to insert username and password
+        message.classList.remove('success');
+        message.classList.add('error');
+        message.innerText = 'Please enter number and pin';
+    }
 
 });
-
-
-
-// event.on('change-window', () => {
-//   fs.readFile(__dirname + '/user-list.html', (error, page) => {
-//     if (error) {
-//       console.log(error);
-//     }
-//     
-//   });
-// });
