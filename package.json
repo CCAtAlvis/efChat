@@ -6,10 +6,10 @@
     "main": "src/main.js",
     "scripts": {
         "start": "electron .",
-        "build": "electron-packager . --overwrite --prune=true --asar --out=builds/testing",
+        "build": "electron-packager . --overwrite --prune=true --out=builds/testing",
         "build-mac": "electron-packager . efChat --overwrite --asar --platform=darwin --arch=x64 --prune=true --out=builds/mac",
-        "build-win-x32": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=builds/win",
-        "build-win-x64": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=builds/win",
+        "build-win-x32": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=builds/win_32",
+        "build-win-x64": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=builds/win_64",
         "build-linux": "electron-packager . efChat --overwrite --asar --platform=linux --arch=x64 --prune=true --out=builds/linux",
         "package-debian": "electron-installer-debian --src builds/testing/efChat-linux-x64/ --arch amd64 --config debian.json"
     },
@@ -25,6 +25,9 @@
     "homepage": "https://github.com/CCAtAlvis/efChat#readme",
     "devDependencies": {
         "electron": "^2.0.2",
+        "electron-packager": "^12.1.0"
+    },
+    "dependencies": {
         "firebase-admin": "^5.12.1",
         "jquery": "^3.3.1"
     }

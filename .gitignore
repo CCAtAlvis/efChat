@@ -5,3 +5,6 @@
 # firebase credentials for the firebase service
 # get your own at https://console.firebase.google.com/
 /src/firebase.json
+
+# ignore builds
+/builds
