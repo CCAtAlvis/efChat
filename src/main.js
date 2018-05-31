@@ -91,3 +91,7 @@ ipcMain.on('login-user', (event, arg) => {
 		win = null
 	});
 });
+
+ipcMain.on('get-user-details', (event, arg) => {
+	event.sender.send('accept-user-details', userDetails.token);
+});

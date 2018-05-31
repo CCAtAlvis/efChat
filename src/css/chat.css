@@ -5,6 +5,7 @@
     height: 100%;
     clear: both;
     float: left;
+    white-space: nowrap;
 }
 
 #mainscreen {
