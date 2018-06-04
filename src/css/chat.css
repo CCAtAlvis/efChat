@@ -10,25 +10,27 @@ h3 { font-family: Comfortaa; }
     float: left;
     background: #F0F0F0;
     overflow-y: auto;
+    z-index: 200;
 }
 
 .sidebar-sec {
     display: table;
     width: 100%;
-    margin-bottom: 30px;
     padding-bottom: 5px;
     border-bottom: 1px solid #333; 
 }
 .sidebar-title { position: relative; text-align: center; }
 
 .contact-card {
-    font-family: Roboto;
     width: 100%;
     height: 50px;
     line-height: 50px;
     display: block;
     float: left;
+    cursor: pointer;
 }
+.contact-card:hover { background: #DDD; }
+.contact-card:active { background: #BBB; }
 
 .profile-pic-holder {
     position: absolute;
@@ -72,7 +74,75 @@ h3 { font-family: Comfortaa; }
 .chat-card .friend-name { margin-top: -7px; }
 .chat-card .sidebar-message { font-size: 12px; margin-top: 10px; }
 
+/* styling for main chat window! */
 #mainscreen {
+    position: relative;
+    height: 100%;
     width: 70%;
     float: left; 
+    overflow-y: auto;
+    background: #C8C8C8;
 }
+
+#message-top-bar {
+    position: fixed;
+    width: 100%;
+    background: green;
+    height: 50px;
+    box-shadow: 0 0 5px #333;
+    z-index: 100;
+}
+
+#message-display-window {
+    position: relative;
+    top: 60px;
+}
+
+.message {
+    position: relative;
+    width: 100%;
+    display: block;
+    min-height: 50px;
+    height: auto;
+    margin-bottom: 30px;
+    font-size: 15px;
+    overflow: auto;
+}
+
+.message-body {
+    position: relative;
+    max-width: 70%;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.message-display-pic {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    bottom: 0;
+    overflow: hidden;
+}
+.message-dp-image {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.user-message-body {
+    position: relative;
+    margin-right: 60px;
+    background: #FFC1FF;
+    float: right;
+    border-bottom-right-radius: 0;
+}
+.user-message-dp { right: 5px; }
+
+.friend-message-body {
+    position: relative;
+    margin-left: 60px;
+    background: #E2E7E0;
+    float: left;
+    border-bottom-left-radius: 0;
+}
+.friend-message-dp { left: 5px; }

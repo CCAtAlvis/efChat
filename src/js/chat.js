@@ -14,6 +14,10 @@ const $ = require('jquery');
 
 ipcRenderer.send('get-user-details');
 
+let userToken;
+let userDetails;
+let currentFriendToken;
+
 // store token of all the friends
 let friends;
 ipcRenderer.on('accept-user-details', (event, arg) => {
@@ -23,14 +27,15 @@ ipcRenderer.on('accept-user-details', (event, arg) => {
         // close app
     }
 
+    userToken = arg;
     database.ref(`Friends/${arg}`).once('value').then((snapshot) => {
         friends = snapshot.val();
 
         for (let key in friends) {
-            let str = `<div class="contact-card friend-card" data-efchat-token="${key}">
+            let str = `<div class="contact-card friend-card" onclick="cardClicked(this, event);" data-efchat-token="${key}">
                 <div class="profile-pic-holder">
                     <div class="profile-pic">
-                        <img class="dp-image" src="hello.png" alt="DP" title="${friends[key].name}'s profile pic!">
+                        <img class="dp-image" src="" alt="DP" title="${friends[key].name}'s profile pic!">
                     </div>
                     <div class="online-status"></div>
                 </div>
@@ -39,12 +44,19 @@ ipcRenderer.on('accept-user-details', (event, arg) => {
             $('#friends').append(str);
         }
 
-        setChats(arg);
+        setChats();
+        setUserDetails();
     });
 });
 
-const setChats = (token) => {
-    database.ref(`Chats/${token}`).once('value').then((snapshot) => {
+const setUserDetails = () => {
+    database.ref(`Users/${userToken}`).once('value').then((snapshot) => {
+        userDetails = snapshot.val();
+    });
+}
+
+const setChats = () => {
+    database.ref(`Chats/${userToken}`).once('value').then((snapshot) => {
         let chats = snapshot.val();
 
         for (let key in chats) {
@@ -53,10 +65,10 @@ const setChats = (token) => {
             //     let friend = snapshot.val();
             // });
 
-            let str = `<div class="contact-card chat-card" data-efchat-token="${key}">
+            let str = `<div class="contact-card chat-card" onclick="cardClicked(this, event);" data-efchat-token="${key}">
                 <div class="profile-pic-holder">
                     <div class="profile-pic">
-                        <img class="dp-image" src="hello.png" alt="DP" title="${friends[key].name}'s profile pic!">
+                        <img class="dp-image" src="" alt="DP" title="${friends[key].name}'s profile pic!">
                     </div>
                     <div class="online-status"></div>
                 </div>
@@ -81,4 +93,59 @@ const setFriendProfile = () => {
                 sel[i].querySelector(".dp-image").setAttribute('src', dpURL);
         });
     }
+
+    init();
 }
+
+const init = () => {
+
+}
+
+const cardClicked = (obj, e) => {
+    e.preventDefault();
+    
+    let friendToken =  obj.getAttribute('data-efchat-token');
+    if (currentFriendToken === friendToken)
+        return;
+
+    $('#message-display-window').html('');
+    currentFriendToken = friendToken;
+
+    let friendDpURL;
+    database.ref(`Users/${friendToken}`).once('value').then((snapshot) => {
+        friendDpURL = snapshot.val().profile_pic;
+    });
+
+    database.ref(`Messages/${userToken}/${friendToken}`).once('value').then((snapshot) => {
+        let messages = snapshot.val();
+        for (let key in messages) {
+            let str;
+
+            if (messages[key].from === userToken) {
+                str = `<div class="message user-message" data-efchat-token="${userToken}">
+                    <div class="message-display-pic user-message-dp">
+                        <img class="message-dp-image" src="${userDetails.profile_pic}">
+                    </div>
+
+                    <div class="message-body user-message-body">
+                        ${messages[key].message}
+                    </div>
+                </div>`;
+            }
+            else {
+                str = `<div class="message friend-message" data-efchat-token="${messages[key].from}">
+                    <div class="message-display-pic friend-message-dp">
+                        <img class="message-dp-image" src="${friendDpURL}">
+                    </div>  
+
+                    <div class="message-body friend-message-body">
+                        ${messages[key].message}
+                    </div>  
+                </div>`;
+
+            }
+
+            $('#message-display-window').append(str);
+        }
+    });
+} 
