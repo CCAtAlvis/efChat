@@ -16,7 +16,7 @@ ipcRenderer.send('get-user-details');
 
 let userToken;
 let userDetails;
-let currentFriendToken;
+let currentFriendToken = null;
 
 // store token of all the friends
 let friends;
@@ -56,15 +56,19 @@ const setUserDetails = () => {
 }
 
 const setChats = () => {
-    database.ref(`Chats/${userToken}`).once('value').then((snapshot) => {
+    let length = Object.keys(friends).length;
+    // TODO: sort by timestamp
+    database.ref(`Chats/${userToken}`).orderByChild('timestamp').once('value').then(snapshot => {
+
+        let chatList = [];
         let chats = snapshot.val();
+        snapshot.forEach(child => {
+            chatList.push(child);
 
-        for (let key in chats) {
-            // database.ref(`Users/${key}`).once('value').then((snapshot) => {
-            //     // TODO: blablabla... see the app
-            //     let friend = snapshot.val();
-            // });
-
+        });
+        
+        chatList.reverse().forEach(child => {
+            let key = child.key;
             let str = `<div class="contact-card chat-card" onclick="cardClicked(this, event);" data-efchat-token="${key}">
                 <div class="profile-pic-holder">
                     <div class="profile-pic">
@@ -77,7 +81,7 @@ const setChats = () => {
                 <div class="unread-message-status"></div>
             </div>`;
             $('#chats').append(str);
-        }
+        });
 
         setFriendProfile();
     });
@@ -87,6 +91,9 @@ const setFriendProfile = () => {
     for (let key in friends) {
         database.ref(`Users/${key}`).once('value').then((snapshot) => {
             let dpURL = snapshot.val().profile_pic;
+
+            if ('default' === dpURL)
+                dpURL = `https://static.tagboard.com/public/img/profile_placeholder.jpg`;
 
             let sel = $(`[data-efchat-token=${key}]`);
             for (let i=0; i<sel.length; i++)
@@ -104,17 +111,13 @@ const init = () => {
 const cardClicked = (obj, e) => {
     e.preventDefault();
     
-    let friendToken =  obj.getAttribute('data-efchat-token');
+    let friendToken = obj.getAttribute('data-efchat-token');
     if (currentFriendToken === friendToken)
         return;
 
     $('#message-display-window').html('');
     currentFriendToken = friendToken;
-
-    let friendDpURL;
-    database.ref(`Users/${friendToken}`).once('value').then((snapshot) => {
-        friendDpURL = snapshot.val().profile_pic;
-    });
+    let friendDpURL = obj.querySelector('.dp-image').getAttribute('src');
 
     database.ref(`Messages/${userToken}/${friendToken}`).once('value').then((snapshot) => {
         let messages = snapshot.val();

@@ -6,7 +6,8 @@
     "main": "src/main.js",
     "scripts": {
         "start": "electron .",
-        "build": "electron-packager . --overwrite --prune=true --out=builds/testing",
+        "build": "electron-packager . --overwrite --asar --prune=true --out=builds/",
+        "build-testing": "electron-packager . --overwrite --purne=true --out=builds/testing",
         "build-mac": "electron-packager . efChat --overwrite --asar --platform=darwin --arch=x64 --prune=true --out=builds/mac",
         "build-win-x32": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=builds/win_32",
         "build-win-x64": "electron-packager . efChat --overwrite --asar --platform=win32 --arch=x64 --prune=true --out=builds/win_64",

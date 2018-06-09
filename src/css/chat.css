@@ -104,7 +104,8 @@ h3 { font-family: Comfortaa; }
     display: block;
     min-height: 50px;
     height: auto;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
+    padding: 3px 0;
     font-size: 15px;
     overflow: auto;
 }
@@ -118,14 +119,15 @@ h3 { font-family: Comfortaa; }
 
 .message-display-pic {
     position: absolute;
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     bottom: 0;
     overflow: hidden;
 }
 .message-dp-image {
-    width: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -136,7 +138,7 @@ h3 { font-family: Comfortaa; }
     float: right;
     border-bottom-right-radius: 0;
 }
-.user-message-dp { right: 5px; }
+.user-message-dp { right: 10px; }
 
 .friend-message-body {
     position: relative;
@@ -145,4 +147,37 @@ h3 { font-family: Comfortaa; }
     float: left;
     border-bottom-left-radius: 0;
 }
-.friend-message-dp { left: 5px; }
+.friend-message-dp { left: 10px; }
+
+/* Message input styling */
+#message-input-area {
+    position: absolute;
+    /* set width dynamically */
+    width: 80%;
+    bottom: 0;
+    z-index: 50;
+    height: 40px;
+    overflow: auto;
+    background: green;
+}
+
+#message-input {
+    /* set width dynamically */
+    width: 80%;
+    outline: none;
+    border: 0;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    font-family: Roboto;
+}
+
+#submit-message-button {
+    outline: none;
+    margin-left: -43px;
+    border: 0;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
